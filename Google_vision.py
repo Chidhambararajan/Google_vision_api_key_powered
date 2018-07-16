@@ -78,38 +78,3 @@ class image_analysis :
     	else:
     		return('https://www.google.com/maps/search/'+str(self.landmark_properties[2]['latitude'])+','+str(self.landmark_properties[2]['longitude'])+'/')
 
-#======================================================================Main Document============================================================
-'''
-def cure(str):#This function is used to remove the single quoates which surround the image path (which gets formed during the drag and drop of the image in the terminal to get the image path)
-    if '\'' in str :
-        str=str.replace("'",'').strip()
-    return(str)
-
-
-
-image=image_analysis('AIzaSyBe7X9Q38FFfBPPff9gZ4Hto922OjTLHtk',cure(input('Enter the path of the file:')))
-print('\n\n')
-
-
-print('Lables=========>\n')
-for i in image.labels:
-    print(i[0],':',i[1],"% confidence")
-print('\nWeb_Indentities========>\n')
-for i in image.web_entities:
-    print(i[0],':',i[1],'% confidence')
-print('\nTextual Content==========>\n')
-print((image.text_in_pic))
-print('\nBest Description=========>\n')
-print(image.best_description[0])
-print('\nLandmark Detected=========>\n')
-for i in image.landmark_properties:
-	print(i)
-
-input('\nPress enter to open label search')
-from webbrowser import open as web_open
-web_open(image.labels_url(),new=2)
-input('\nPress enter to open web entity search')
-web_open(image.web_entities_url(),new=2)
-input('\nPress enter to open landmark location')
-web_open(image.landmark_location_url(),new=2)
-print('URL:',image.landmark_location_url())'''
