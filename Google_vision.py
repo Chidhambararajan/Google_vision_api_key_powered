@@ -17,10 +17,10 @@ class image_analysis :
         self.request_json={}
         self.image_path=image_path
         self.response={}
-        self.best_description=None
+        self.best_description=''
         self.labels=None
-        self.text_in_pic=None
-        self.landmark_properties=None
+        self.text_in_pic=''
+        self.landmark_properties=(,)
         self.web_entities=[]
         self.get_results()
     
@@ -33,9 +33,12 @@ class image_analysis :
                     self.web_entities.append((i['description'],i['score']))
                 except KeyError :
                     pass
+
         if self.response['responses'][0]['webDetection']['bestGuessLabels']!={}:
             try:
-                self.best_description=[x['label'] for x in self.response['responses'][0]['webDetection']['bestGuessLabels']]        
+                self.best_description=[x['label'] for x in self.response['responses'][0]['webDetection']['bestGuessLabels']][0]        
+                if type(self.best_description)==tuple:
+                    self.best_description=self.best_description[0]
             except KeyError:
                 pass
 
@@ -57,10 +60,10 @@ class image_analysis :
 
         self.request_json = {"requests":[{"image":{"content":self.image_content},"features":[{"type":"LABEL_DETECTION","maxResults":no_of_lables},{"type":"LANDMARK_DETECTION","maxResults":no_of_lables},{"type":"LOGO_DETECTION","maxResults":no_of_lables},{"type":"TEXT_DETECTION"},{'type':'DOCUMENT_TEXT_DETECTION'},{"type":"WEB_DETECTION","maxResults":no_of_lables}]}]}
         self.response=loads(requests.post(self.url,data=str(self.request_json)).text.replace('  '," "))
-'''
+        '''
         with open('response.json','w') as file :
             json_dump(self.response,file,indent=4)
-'''
+        '''
         self.process_json()
 
     def labels_url(self):
@@ -77,4 +80,3 @@ class image_analysis :
     		raise RuntimeError('No landmark details available to create url')
     	else:
     		return('https://www.google.com/maps/search/'+str(self.landmark_properties[2]['latitude'])+','+str(self.landmark_properties[2]['longitude'])+'/')
-
