@@ -20,7 +20,7 @@ class image_analysis :
         self.best_description=''
         self.labels=None
         self.text_in_pic=''
-        self.landmark_properties=(,)
+        self.landmark_properties=tuple()
         self.web_entities=[]
         self.get_results()
     
