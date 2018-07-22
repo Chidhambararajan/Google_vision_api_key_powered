@@ -70,13 +70,13 @@ class image_analysis :
     	return('https://www.google.com/search?q='+'+'.join([x[0] for x in self.labels])+'&t')
 
     def web_entities_url(self):
-    	if self.web_entities==None:
+    	if self.web_entities==[]:
     		raise RuntimeError('No web entities to generate url')
     	else:
     		return('https://www.google.com/search?q='+'+'.join([x[0] for x in self.web_entities])+'&t')
 
     def landmark_location_url(self):
-    	if self.landmark_properties==None:
+    	if self.landmark_properties==tuple():
     		raise RuntimeError('No landmark details available to create url')
     	else:
     		return('https://www.google.com/maps/search/'+str(self.landmark_properties[2]['latitude'])+','+str(self.landmark_properties[2]['longitude'])+'/')
