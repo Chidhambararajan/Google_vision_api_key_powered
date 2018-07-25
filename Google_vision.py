@@ -11,7 +11,7 @@ class image_analysis :
         if path.isfile(image_path):
             self.image_content=encode(open(image_path,'rb').read()).decode('UTF-8')
         else:
-            raise FileNotFoundError('Image not found in given location')
+            raise FileNotFoundError('Image not found in given location or ensure that the path is not surrounded by quotes')
 
         self.url = "https://vision.googleapis.com/v1/images:annotate?key="+api_key
         self.request_json={}
@@ -23,8 +23,10 @@ class image_analysis :
         self.landmark_properties=tuple()
         self.web_entities=[]
         self.get_results()
-    
+        
     def process_json(self):
+        if 'responses' not in self.response.keys() :
+            raise ValueError("API key is invalid or expired")
 
         if 'webDetection' in self.response['responses'][0].keys():
             #self.web_entities=[(x['description'],x['score']*100) for x in self.response['responses'][0]['webDetection']['webEntities']]
