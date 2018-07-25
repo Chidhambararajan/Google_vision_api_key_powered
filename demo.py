@@ -58,9 +58,10 @@ web pages can be launched with webbrowser  module or with other alternatives
 '''
 
 '''
-Note: The Google_vision.py file must be present in the same directory as  
+Note: The Google_vision.py file must be present in the same local directory as  
 the file where you use the module
- That's it Happy Coding!!!
+ 
+That's it Happy Coding!!!
 '''
 
 '''
